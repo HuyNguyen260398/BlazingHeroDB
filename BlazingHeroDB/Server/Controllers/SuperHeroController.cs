@@ -14,15 +14,15 @@ namespace BlazingHeroDB.Server.Controllers
             new Comic() { Name = "DC"}
         };
 
-        List<SuperHero> heros = new()
+        List<SuperHero> heroes = new()
         {
             new SuperHero() { FirstName = "Peter", LastName = "Parker", HeroName = "Spiderman", Comic = comics[0] },
             new SuperHero() { FirstName = "Bruce", LastName = "Wayne", HeroName = "Batman", Comic = comics[1] },
         };
 
-        public async Task<IActionResult> GetSuperHeros()
+        public async Task<IActionResult> GetSuperHeroes()
         {
-            return Ok(heros);
+            return Ok(heroes);
         }
     }
 }

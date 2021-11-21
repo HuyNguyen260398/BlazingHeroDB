@@ -10,19 +10,26 @@ namespace BlazingHeroDB.Server.Controllers
     {
         static List<Comic> comics = new()
         {
-            new Comic() { Name = "Marvel" },
-            new Comic() { Name = "DC" }
+            new Comic() { Id = 1, Name = "Marvel" },
+            new Comic() { Id = 2, Name = "DC" }
         };
 
-        List<SuperHero> heroes = new()
+        static List<SuperHero> heroes = new()
         {
             new SuperHero() { Id = 1, FirstName = "Peter", LastName = "Parker", HeroName = "Spiderman", Comic = comics[0] },
             new SuperHero() { Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName = "Batman", Comic = comics[1] },
         };
 
+        [HttpGet("comics")]
+        public async Task<IActionResult> GetComics()
+        {
+            return Ok(comics);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateSuperHero(SuperHero hero)
         {
+            hero.Id = heroes.Max(x => x.Id + 1);
             heroes.Add(hero);
             return Ok(heroes);
         }

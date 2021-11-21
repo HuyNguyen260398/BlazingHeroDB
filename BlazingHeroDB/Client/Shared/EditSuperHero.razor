@@ -1,6 +1,8 @@
 ﻿<h3>Add/Edit Super Hero</h3>
+@inject ISuperHeroService SuperHeroService
+@inject IJSRuntime JSRuntime
 
-<EditForm Model="Hero" >
+<EditForm Model="Hero" OnSubmit="HandleSubmit">
     <div class="form-group">
         <label>First Name</label>
         <InputText @bind-Value="Hero.FirstName" class="form-control"></InputText>
@@ -15,8 +17,9 @@
     </div>
     <div class="form-group">
         <label>Comic</label>
-        <InputRadioGroup @bind-Value="Hero.Comic" class="form-group">
-            @foreach (var comic in Comics)
+        <br />
+        <InputRadioGroup @bind-Value="comicId" class="form-group">
+            @foreach (var comic in SuperHeroService.Comics)
             {
                 <InputRadio Value="comic.Id" /><span style="padding-left: 5px;">@comic.Name</span><br />
             }
@@ -29,10 +32,19 @@
 
 @code {
     public SuperHero Hero { get; set; } = new SuperHero();
-    public List<Comic> Comics { get; set; } = new List<Comic>();
+    int comicId = 1;
 
-    void HandleSubmit()
+    protected override async Task OnInitializedAsync()
     {
-        
+        await SuperHeroService.GetComics();
+    }
+
+    async Task HandleSubmit()
+    {
+        Hero.Comic = SuperHeroService.Comics.FirstOrDefault(c => c.Id == comicId);
+        Console.WriteLine("Submit was called");
+        JSRuntime.InvokeVoidAsync("console.log", Hero);
+
+        await SuperHeroService.CreateSuperHero(Hero);
     }
 }

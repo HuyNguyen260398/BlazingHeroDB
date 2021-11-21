@@ -7,12 +7,16 @@ namespace BlazingHeroDB.Client.Services
     {
         private readonly HttpClient httpClient;
 
+
         public SuperHeroService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
         public List<Comic> Comics { get; set; } = new();
+        public List<SuperHero> Heroes { get; set; } = new();
+        
+        public event Action OnChange;
 
         public async Task GetComics()
         {
@@ -22,8 +26,9 @@ namespace BlazingHeroDB.Client.Services
         public async Task<List<SuperHero>> CreateSuperHero(SuperHero hero)
         {
             var results = await httpClient.PostAsJsonAsync("api/superhero", hero);
-            var heroes = await results.Content.ReadFromJsonAsync<List<SuperHero>>();
-            return heroes;
+            Heroes = await results.Content.ReadFromJsonAsync<List<SuperHero>>();
+            OnChange.Invoke();
+            return Heroes;
         }
 
         public async Task<SuperHero> GetSuperHeroById(int id)
@@ -33,7 +38,8 @@ namespace BlazingHeroDB.Client.Services
 
         public async Task<List<SuperHero>> GetSuperHeroes()
         {
-            return await httpClient.GetFromJsonAsync<List<SuperHero>>("api/superhero");
+            Heroes = await httpClient.GetFromJsonAsync<List<SuperHero>>("api/superhero");
+            return Heroes;
         }
     }
 }

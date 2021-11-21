@@ -1,10 +1,11 @@
 ﻿@page "/superheroes"
 @inject ISuperHeroService SuperHeroService
 @inject NavigationManager NavManager
+@implements IDisposable
 
 <h3>Super Heroes</h3>
 
-@if (heroes.Count == 0)
+@if (SuperHeroService.Heroes.Count == 0)
 {
     <span>Loading heroes...</span>
 }
@@ -21,7 +22,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var hero in heroes)
+            @foreach (var hero in SuperHeroService.Heroes)
             {
                 <tr>
                     <td>@hero.FirstName</td>
@@ -40,15 +41,21 @@ else
 <EditSuperHero />
 
 @code {
-    List<SuperHero> heroes = new List<SuperHero>();
+    //List<SuperHero> heroes = new List<SuperHero>();
 
     protected override async Task OnInitializedAsync()
     {
-        heroes = await SuperHeroService.GetSuperHeroes();
+        await SuperHeroService.GetSuperHeroes();
+        SuperHeroService.OnChange += StateHasChanged;
     }
 
     private void ShowHeroInfo(int id)
     {
         NavManager.NavigateTo($"superheroes/{id}");
+    }
+
+    public void Dispose()
+    {
+        SuperHeroService.OnChange -= StateHasChanged;
     }
 }

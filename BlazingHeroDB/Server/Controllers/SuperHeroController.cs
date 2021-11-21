@@ -20,6 +20,13 @@ namespace BlazingHeroDB.Server.Controllers
             new SuperHero() { Id = 2, FirstName = "Bruce", LastName = "Wayne", HeroName = "Batman", Comic = comics[1] },
         };
 
+        [HttpPost]
+        public async Task<IActionResult> CreateSuperHero(SuperHero hero)
+        {
+            heroes.Add(hero);
+            return Ok(heroes);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetSuperHeroes()
         {

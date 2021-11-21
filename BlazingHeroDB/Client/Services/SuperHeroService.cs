@@ -12,6 +12,13 @@ namespace BlazingHeroDB.Client.Services
             this.httpClient = httpClient;
         }
 
+        public async Task<List<SuperHero>> CreateSuperHero(SuperHero hero)
+        {
+            var results = await httpClient.PostAsJsonAsync("api/superhero", hero);
+            var heroes = await results.Content.ReadFromJsonAsync<List<SuperHero>>();
+            return heroes;
+        }
+
         public async Task<SuperHero> GetSuperHeroById(int id)
         {
             return await httpClient.GetFromJsonAsync<SuperHero>($"api/superhero/{id}");

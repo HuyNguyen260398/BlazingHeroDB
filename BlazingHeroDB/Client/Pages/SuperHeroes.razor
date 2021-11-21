@@ -36,6 +36,9 @@ else
                     <td>
                         <button class="btn btn-info" @onclick="(() => EditHero(hero.Id))">Edit</button>
                     </td>
+                    <td>
+                        <button class="btn btn-info" @onclick="(() => DeleteHero(hero.Id))">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -62,6 +65,11 @@ else
     private void EditHero(int id)
     {
         HeroToEdit = SuperHeroService.Heroes.FirstOrDefault(h => h.Id == id);
+    }
+
+    private async Task DeleteHero(int id)
+    {
+        await SuperHeroService.DeleteSuperHero(id);
     }
 
     public void Dispose()

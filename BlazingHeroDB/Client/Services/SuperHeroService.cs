@@ -7,7 +7,6 @@ namespace BlazingHeroDB.Client.Services
     {
         private readonly HttpClient httpClient;
 
-
         public SuperHeroService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
@@ -45,6 +44,14 @@ namespace BlazingHeroDB.Client.Services
         public async Task<List<SuperHero>> UpdateSuperHero(SuperHero hero, int id)
         {
             var results = await httpClient.PutAsJsonAsync($"api/superhero/{id}", hero);
+            Heroes = await results.Content.ReadFromJsonAsync<List<SuperHero>>();
+            OnChange.Invoke();
+            return Heroes;
+        }
+
+        public async Task<List<SuperHero>> DeleteSuperHero(int id)
+        {
+            var results = await httpClient.DeleteAsync($"api/superhero/{id}");
             Heroes = await results.Content.ReadFromJsonAsync<List<SuperHero>>();
             OnChange.Invoke();
             return Heroes;

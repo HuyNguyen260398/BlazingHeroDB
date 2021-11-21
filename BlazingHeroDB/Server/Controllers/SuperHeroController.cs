@@ -60,5 +60,16 @@ namespace BlazingHeroDB.Server.Controllers
             heroes[index] = hero;
             return Ok(heroes);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSuperHero(int id)
+        {
+            var dbHero = heroes.FirstOrDefault(h => h.Id == id);
+            if (dbHero == null)
+                return NotFound($"Couldn't found hero with id {id}");
+
+            heroes.Remove(dbHero);
+            return Ok(heroes);
+        }
     }
 }

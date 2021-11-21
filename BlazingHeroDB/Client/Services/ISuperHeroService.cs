@@ -11,5 +11,6 @@ namespace BlazingHeroDB.Client.Services
         Task<List<SuperHero>> CreateSuperHero(SuperHero hero);
         Task<List<SuperHero>> GetSuperHeroes();
         Task<SuperHero> GetSuperHeroById(int id);
+        Task<List<SuperHero>> UpdateSuperHero(SuperHero hero, int id);
     }
 }

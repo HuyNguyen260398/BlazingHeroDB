@@ -48,5 +48,17 @@ namespace BlazingHeroDB.Server.Controllers
                 return NotFound($"Couldn't found hero with id {id}");
             return Ok(hero);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSuperHero(SuperHero hero, int id)
+        {
+            var dbHero = heroes.FirstOrDefault(h => h.Id == id);
+            if (dbHero == null)
+                return NotFound($"Couldn't found hero with id {id}");
+
+            var index = heroes.IndexOf(dbHero);
+            heroes[index] = hero;
+            return Ok(heroes);
+        }
     }
 }

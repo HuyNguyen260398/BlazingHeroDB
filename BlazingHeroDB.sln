@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingHeroDB.Server", "BlazingHeroDB\Server\BlazingHeroDB.Server.csproj", "{4984258C-F6DA-4166-9666-970FEB71C59D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingHeroDB.Server", "BlazingHeroDB\Server\BlazingHeroDB.Server.csproj", "{4984258C-F6DA-4166-9666-970FEB71C59D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingHeroDB.Client", "BlazingHeroDB\Client\BlazingHeroDB.Client.csproj", "{32A380AE-B46D-4319-8FFC-CCBC59BF460B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingHeroDB.Client", "BlazingHeroDB\Client\BlazingHeroDB.Client.csproj", "{32A380AE-B46D-4319-8FFC-CCBC59BF460B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingHeroDB.Shared", "BlazingHeroDB\Shared\BlazingHeroDB.Shared.csproj", "{DAD6B141-3C0F-4D35-BCAD-1BFB3D235C4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingHeroDB.Shared", "BlazingHeroDB\Shared\BlazingHeroDB.Shared.csproj", "{DAD6B141-3C0F-4D35-BCAD-1BFB3D235C4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

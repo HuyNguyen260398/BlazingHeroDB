@@ -1,5 +1,6 @@
 ﻿@page "/superheroes"
 @inject ISuperHeroService SuperHeroService
+@inject NavigationManager NavManager
 
 <h3>Super Heroes</h3>
 
@@ -16,6 +17,7 @@ else
                 <th>Last Name</th>
                 <th>Hero Name</th>
                 <th>Comic</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +28,9 @@ else
                     <td>@hero.LastName</td>
                     <td>@hero.HeroName</td>
                     <td>@hero.Comic.Name</td>
+                    <td>
+                        <button class="btn btn-info" @onclick="(() => ShowHeroInfo(hero.Id))">Show Info</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -38,5 +43,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         heroes = await SuperHeroService.GetSuperHeroes();
+    }
+
+    private void ShowHeroInfo(int id)
+    {
+        NavManager.NavigateTo($"superheroes/{id}");
     }
 }

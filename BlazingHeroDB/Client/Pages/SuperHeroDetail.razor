@@ -1,0 +1,24 @@
+﻿@page "/superheroes/{Id:int}"
+@inject ISuperHeroService SuperHeroService
+
+<h3>Super Hero</h3>
+
+@if(hero == null)
+{
+    <span>Loading...</span>
+}
+else
+{
+    <h5>This is @hero.HeroName from @hero.Comic.Name, aka @hero.FirstName @hero.LastName</h5>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    SuperHero hero = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hero = await SuperHeroService.GetSuperHeroById(Id);
+    }
+}

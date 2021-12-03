@@ -47,12 +47,15 @@ else
     protected override async Task OnParametersSetAsync()
     {
         await SuperHeroService.GetComics();
-        //comicId = Hero.Comic.Id;
+        Hero.Comic = new Comic();
+        comicId = Hero.Comic.Id;
     }
 
     async Task HandleSubmit()
     {
-        Hero.Comic = SuperHeroService.Comics.FirstOrDefault(c => c.Id == comicId);
+        //Hero.Comic = SuperHeroService.Comics.FirstOrDefault(c => c.Id == comicId);
+        Hero.Comic = null;
+        Hero.ComicId = comicId;
         //Console.WriteLine("Submit was called");
         //await JSRuntime.InvokeVoidAsync("console.log", Hero);
 
